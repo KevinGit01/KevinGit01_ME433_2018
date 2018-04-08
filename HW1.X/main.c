@@ -39,6 +39,7 @@
 #pragma config FUSBIDIO = ON // USB pins controlled by USB module
 #pragma config FVBUSONIO = ON // USB BUSON controlled by USB module
 
+void delay(void);
 
 int main() {
 
@@ -66,11 +67,19 @@ int main() {
     while(1) {
 	// use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
 	// remember the core timer runs at half the sysclk
+        delay();
         _CP0_SET_COUNT(0);
         while(_CP0_GET_COUNT()<12000){
             ;
         }
         LATBbits.LATB7 ^= 1;
     
+    }
+}
+
+void delay(void){
+    while(!PORTAbits.RA4){
+        LATBbits.LATB7 = 0;
+    ;
     }
 }
