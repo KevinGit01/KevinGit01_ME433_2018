@@ -1,15 +1,16 @@
-/* 
- * File:   SPI.h
- * Author: kevin
- *
- * Created on April 17, 2018, 9:35 PM
- */
+#ifndef SPI1__H__
+#define SPI1__H__
 
-#ifndef SPI_H
-#define	SPI_H
+#include <xc.h>           // processor SFR definitions
+#include <sys/attribs.h>  // __ISR macro
 
-void initSPI1();
-char SPI1_IO(char);
+#define CS LATAbits.LATA0 // chip select pin
+#define CHANNELA 0         
+#define CHANNELB 1
+#define PI 3.1415926535898
 
-#endif	/* SPI_H */
-
+unsigned char SPI1_IO(short ch); // send a byte via spi and return the response
+void SPI1_init(); // initialize SPI1
+void setVoltage(char channel, short voltage); // set channel and voltage
+    
+#endif
