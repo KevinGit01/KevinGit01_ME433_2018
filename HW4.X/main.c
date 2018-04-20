@@ -54,39 +54,39 @@ int main() {
             if(i<100){
             setVoltage('B',(short)1023.0*i/100);
             }
-            if((i>=100)&&(i<200)){
+            else if((i>=100)&&(i<200)){
                 i = i-100;
             setVoltage('B',(short)1023.0-(1023.0*i/100));
             }
-            if((i>=200)&&(i<300)){
+            else if((i>=200)&&(i<300)){
                 i = i-200;
             setVoltage('B',(short)1023.0*i/100);
             }
-            if((i>=300)&&(i<400)){
+            else if((i>=300)&&(i<400)){
                 i = i-300;
             setVoltage('B',(short)1023.0-(1023.0*i/100));
             }
-            if((i>=400)&&(i<500)){
+            else if((i>=400)&&(i<500)){
                 i = i-400;
             setVoltage('B',(short)1023.0*i/100);
             }
-            if((i>=500)&&(i<600)){
+            else if((i>=500)&&(i<600)){
                 i = i-500;
             setVoltage('B',(short)1023.0-(1023.0*i/100));
             }
-            if((i>=600)&&(i<700)){
+            else if((i>=600)&&(i<700)){
                 i = i-600;
             setVoltage('B',(short)1023.0*i/100);
             }
-            if((i>=700)&&(i<800)){
+            else if((i>=700)&&(i<800)){
                 i = i-700;
             setVoltage('B',(short)1023.0-(1023.0*i/100));
             }
-            if((i>=800)&&(i<900)){
+            else if((i>=800)&&(i<900)){
                 i = i-800;
             setVoltage('B',(short)1023.0*i/100);
             }
-            if((i>=900)&&(i<1000)){
+            else if((i>=900)&&(i<1000)){
                 i = i-900;
             setVoltage('B',(short)1023.0-(1023.0*i/100));
             }
