@@ -71,23 +71,9 @@ int main() {
     __builtin_enable_interrupts();
 
     while(1) {
-	// use _CP0_SET_COUNT(0) and _CP0_GET_COUNT() to test the PIC timing
-	// remember the core timer runs at half the sysclk
-        delay();
-        unsigned char pin = 1;
-        unsigned char level = 1;
-        i2c_master_start();
-        i2c_master_send(0b01001000); // R/W = 0 = write
-        i2c_master_send(0x0A); // 0x0A = OLAT
-        i2c_master_send(0b1111); // set pin high/low
-        i2c_master_stop();
-        
-        _CP0_SET_COUNT(0);
-        while(_CP0_GET_COUNT()<2400000){
-            ;
-        }
-        
-    }  
+        char level = (getExpander()>>7);
+        setExpander(0,level);
+    }
 }
 
 void delay(void){
@@ -98,7 +84,7 @@ void delay(void){
 }
 
 void initExpander(){
-    
+
     i2c_master_setup();
     i2c_master_start();
     i2c_master_send(0b01001000); // R/W = 0 = write
@@ -113,4 +99,17 @@ void setExpander(unsigned char pin, unsigned char level){
     i2c_master_send(0x0A); // 0x0A = OLAT
     i2c_master_send(0b1111); // set pin high/low
     i2c_master_stop();
+}
+
+char getExpander(){
+    char level;
+    i2c_master_start();
+    i2c_master_send(SLAVE_ADDR<<1); // R/W = 0 = write
+    i2c_master_send(0x09); // 0x09 = GPIO
+    i2c_master_restart();
+    i2c_master_send((SLAVE_ADDR<<1)|1); // R/W = 1 = read
+    level = i2c_master_recv(); // receive a byte from GP7
+    i2c_master_ack(1); // send NACK to slave
+    i2c_master_stop();
+    return level;
 }
