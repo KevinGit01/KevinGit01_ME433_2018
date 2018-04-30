@@ -83,6 +83,7 @@ int main() {
         I2C_read_multiple(IMU_ADDR, 0x20, dataReg8, 14);
         Gx = getxXL(dataReg8);
         Gy = getyXL(dataReg8);    
+        
         sprintf(str1,"Gx = %1.3f!",Gx);
         LCD_drawString(10,10,str1,BLUE); //String
         sprintf(str1,"Gy = %1.3f!",Gy);
