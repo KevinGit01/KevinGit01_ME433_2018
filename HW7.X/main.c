@@ -64,7 +64,7 @@ int main() {
     // short dataReg16[STRINGLENGTH];
     char str1[STRINGLENGTH];
     int i;
-    float Gx,Gy;
+    float accx,accy;
     
     __builtin_disable_interrupts();
     
@@ -81,25 +81,15 @@ int main() {
     while(1) {
         _CP0_SET_COUNT(0);
         I2C_read_multiple(IMU_ADDR, 0x20, dataReg8, 14);
-        Gx = getxXL(dataReg8);
-        Gy = getyXL(dataReg8);    
-        
-        sprintf(str1,"Gx = %1.3f!",Gx);
+        accx = getxXL(dataReg8);
+        accy = getyXL(dataReg8);    
+        sprintf(str1,"Gx = %1.3f!",accx);
         LCD_drawString(10,10,str1,BLUE); //String
-        sprintf(str1,"Gy = %1.3f!",Gy);
+        sprintf(str1,"Gy = %1.3f!",accy);
         LCD_drawString(10,20,str1,BLUE); //String
-        LCD_drawGravCross(Gx,Gy,MAGENTA);
+        LCD_drawGravCross(accx,accy,MAGENTA);
         sprintf(str1,"KZ");
         LCD_drawString(100,100,str1,CYAN); //String
-        
-        
-        
-        
-//       unsigned char status = imu_test();
-//       sprintf(str1, "Test address: %x  ", status);
-//       LCD_drawString(10, 65, str1, WHITE);
-//        
-
         
         while (_CP0_GET_COUNT()<1200000) {;}
         LATAbits.LATA4=!LATAbits.LATA4;
