@@ -80,6 +80,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 
 APP_DATA appData;
+#define STRINGLENGTH 100
 
 // *****************************************************************************
 // *****************************************************************************
@@ -120,7 +121,6 @@ void APP_Initialize ( void )
     /* Place the App state machine in its initial state. */
     
     appData.state = APP_STATE_INIT;
-    #define STRINGLENGTH 100
     unsigned char dataReg8[STRINGLENGTH]={};
     // short dataReg16[STRINGLENGTH];
     char str1[STRINGLENGTH];
@@ -207,3 +207,4 @@ void APP_Tasks ( void )
         }
     }
 }
+    
