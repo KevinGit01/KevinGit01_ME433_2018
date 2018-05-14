@@ -91,6 +91,8 @@ MOUSE_REPORT mouseReport APP_MAKE_BUFFER_DMA_READY;
 MOUSE_REPORT mouseReportPrevious APP_MAKE_BUFFER_DMA_READY;
 
 
+
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
