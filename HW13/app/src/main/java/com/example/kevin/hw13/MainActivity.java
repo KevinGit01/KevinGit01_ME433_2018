@@ -139,13 +139,15 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 
             // in the row, see if there is more green than red
             for (int i = 0; i < bmp.getWidth(); i++) {
-                if ((green(pixels[i]) - red(pixels[i])) > thresh) {
-                    pixels[i] = rgb(0, 255, 0); // over write the pixel with pure green
+                if ((red(pixels[i]) - green(pixels[i])) > thresh) {
+                    pixels[i] = rgb(255, 0, 0); // over write the pixel with pure green
                 }
             }
 
             // update the row
-            bmp.setPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
+           // for(int j = startY-13; j < 30; j++) {
+                bmp.setPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
+           // }
         }
 
         // draw a circle at some position
