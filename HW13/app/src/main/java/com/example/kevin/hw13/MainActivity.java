@@ -38,6 +38,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 
     SeekBar myControl;
     static long prevtime = 0; // for FPS calculation
+    int thresh = 0;
 
     //seek bar listener
     private void setMyControlListener() {
@@ -47,8 +48,10 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChanged = progress;
-                myTextView.setText("The value is: "+progress);
+                progressChanged = thresh;
+               // myTextView.setText("The value is: "+progress);
+                thresh = progress;
+               // return thresh;
             }
 
             @Override
@@ -70,6 +73,8 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // keeps the screen from turning off
 
         mTextView = (TextView) findViewById(R.id.cameraStatus);
+        myControl = (SeekBar) findViewById(R.id.seek1);
+
 
         // see if the app has permission to use the camera
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
@@ -125,7 +130,9 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
 
         final Canvas c = mSurfaceHolder.lockCanvas();
         if (c != null) {
-            int thresh = 0; // comparison value
+            //int thresh = 0; // comparison value
+            //replace thresh with seek bar
+            setMyControlListener();
             int[] pixels = new int[bmp.getWidth()]; // pixels[] is the RGBA data
             int startY = 200; // which row in the bitmap to analyze to read
             bmp.getPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
