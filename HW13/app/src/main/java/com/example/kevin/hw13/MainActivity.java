@@ -134,20 +134,26 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             //replace thresh with seek bar
             setMyControlListener();
             int[] pixels = new int[bmp.getWidth()]; // pixels[] is the RGBA data
-            int startY = 200; // which row in the bitmap to analyze to read
-            bmp.getPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
+            int startY = 0; // which row in the bitmap to analyze to read
 
-            // in the row, see if there is more green than red
-            for (int i = 0; i < bmp.getWidth(); i++) {
-                if ((red(pixels[i]) - green(pixels[i])) > thresh) {
-                    pixels[i] = rgb(255, 0, 0); // over write the pixel with pure green
+            for(int j=0; j<240; j++) {
+
+                bmp.getPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
+
+                // in the row, see if there is more green than red
+                for (int i = 0; i < bmp.getWidth(); i++) {
+                    if ((green(pixels[i]) - red(pixels[i])) > thresh) {
+                        pixels[i] = rgb(0, 255, 0); // over write the pixel with pure green
+                    }
                 }
-            }
 
-            // update the row
-           // for(int j = startY-13; j < 30; j++) {
+                // update the row
+                // for(int j = startY-13; j < 30; j++) {
                 bmp.setPixels(pixels, 0, bmp.getWidth(), 0, startY, bmp.getWidth(), 1);
-           // }
+                // }
+                startY = startY +3;
+                if(startY >= 479){startY = 0;}
+            }
         }
 
         // draw a circle at some position
