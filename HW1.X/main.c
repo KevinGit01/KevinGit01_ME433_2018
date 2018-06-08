@@ -58,9 +58,8 @@ int main() {
     DDPCONbits.JTAGEN = 0;
 
     // do your TRIS and LAT commands here
-    TRISBbits.TRISB7 = 0;
-    LATBbits.LATB7 = 1;
-    TRISAbits.TRISA4 = 0;
+    TRISBbits.TRISB13 = 0;
+    TRISAbits.TRISA0 = 0;
     TRISBbits.TRISB4 = 0;
 
     __builtin_enable_interrupts();
@@ -70,11 +69,11 @@ int main() {
 	// remember the core timer runs at half the sysclk
         delay();
         _CP0_SET_COUNT(0);
-        while(_CP0_GET_COUNT()<12000){
+        while(_CP0_GET_COUNT()<48000000){
             ;
         }
-        LATBbits.LATB7 ^= 1;
-        LATAbits.LATA4 = 1;
+        LATBbits.LATB13 = 1;
+        LATAbits.LATA0 = 1;
         LATBbits.LATB4 = 1;
     
     }
