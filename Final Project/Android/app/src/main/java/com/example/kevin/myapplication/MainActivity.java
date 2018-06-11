@@ -314,7 +314,7 @@ public class MainActivity extends Activity implements TextureView.SurfaceTexture
             setMyControlListener();
             int[] pixels = new int[bmp.getWidth()]; // pixels[] is the RGBA data
             int startYL = 260; // which row in the bitmap to analyze to read
-            int startYH = 30;
+            int startYH = 33;
 
             int R = thresh;
             int T = 0;

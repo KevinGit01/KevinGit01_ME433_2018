@@ -81,19 +81,19 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
         comH = getCOMH();
         comL = getCOML();
         sError = getdiff();
-        float kp = 1.7;
+        float kp = 2.6;
    
      
         if(-17 <= sError && sError <= 17){
-            MAX_DUTY = 1680;
+            MAX_DUTY = 1660;
         }else if(sError< -17){
             sError = -sError;
-            MAX_DUTY = 2000 - sError*5;
+            MAX_DUTY = 1900 - sError*5;
             if(MAX_DUTY < 1200){
                 MAX_DUTY = 1200;
             }
         }else{
-            MAX_DUTY = 2000 - sError*5;
+            MAX_DUTY = 1900 - sError*5;
             if(MAX_DUTY < 1200){
                 MAX_DUTY = 1200;
             }
@@ -110,15 +110,15 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
         error = comL - 319; // 240 means the dot is in the middle of the screen
         if(error<-30) { // slow down the left motor to steer to the left
             error  = -error;
-            left = 0.9*MAX_DUTY - kp*error;
-            right = 0.9*MAX_DUTY-error;
+            left = 0.85*MAX_DUTY - kp*error;
+            right = 0.85*MAX_DUTY-error;
             if (left < 0){
                 left = 0;
             }
         }
         else if(error > 30){ // slow down the right motor to steer to the right
-            right = 0.9*MAX_DUTY - kp*error;
-            left = 0.9*MAX_DUTY-error;
+            right = 0.85*MAX_DUTY - kp*error;
+            left = 0.85*MAX_DUTY-error;
             if (right<0) {
                 right = 0;
             }
