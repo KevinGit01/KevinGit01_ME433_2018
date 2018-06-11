@@ -37,8 +37,7 @@
             android:secondaryProgress="20"
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
-
-
+        
         <TextureView
             android:id="@+id/textureview"
             android:layout_width="640px"
