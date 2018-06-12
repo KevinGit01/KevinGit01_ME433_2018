@@ -64,10 +64,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_definitions.h"
 
 int sError = 0,error= 0,left=0,right=0,MAX_DUTY = 2400;
+float ki = 0.033;
 
 int comH = 0;
 int comL = 0;
 int comL_old = 0;
+int eTotal = 0;
+int counter = 0;
 
 void __ISR(_USB_1_VECTOR, ipl4AUTO) _IntHandlerUSBInstance0(void)
 {
@@ -83,17 +86,19 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
         sError = getdiff();
         float kp = 2.6;
    
+        //check if on the bridge 
+        
      
         if(-17 <= sError && sError <= 17){
-            MAX_DUTY = 1660;
+            MAX_DUTY = 2199;
         }else if(sError< -17){
             sError = -sError;
-            MAX_DUTY = 1900 - sError*5;
+            MAX_DUTY = 2018 - sError*5 - eTotal*ki;
             if(MAX_DUTY < 1200){
                 MAX_DUTY = 1200;
             }
         }else{
-            MAX_DUTY = 1900 - sError*5;
+            MAX_DUTY = 2018 - sError*5 - eTotal*ki;
             if(MAX_DUTY < 1200){
                 MAX_DUTY = 1200;
             }
@@ -130,6 +135,13 @@ void __ISR(_TIMER_4_VECTOR, IPL4SOFT) Timer4ISR(void) {
         OC4RS = left;
         
         comL_old = comL;
+        eTotal = eTotal + error;
+        counter++;
+        
+        if(counter > 500){
+            counter = 0;
+            eTotal = 0;   
+        }
                 
   IFS0bits.T4IF = 0; // clear interrupt flag, last line
 }
